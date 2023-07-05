@@ -1,25 +1,18 @@
-import logo from './logo.svg';
-import './App.css';
+import './/App.css';
+import PostInfo from './PostInfo';
+import {posts} from './components/posts/Posts.js'
 
-function App() {
+const title = 'User list';
+const App = () => {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <div className={'app'}>
+        <h1>{title}</h1>
+        {posts.map((post) =>
+            <PostInfo key={post.id} post={post}/>)}
+      </div>
   );
-}
+};
 
 export default App;
+
