@@ -7,9 +7,11 @@ const title = 'Posts:';
 const App = () => {
 
     return (
-        <div className={'app'}>
+        <div>
             <h1>{title}</h1>
-            <PostComponent />
+            <div className={'app'}>
+                <PostComponent />
+            </div>
         </div>
     );
 };

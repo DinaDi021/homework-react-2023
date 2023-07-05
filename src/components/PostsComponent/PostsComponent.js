@@ -4,7 +4,7 @@ import {useState} from "react";
 
 
 const PostsComponent = () => {
-    const one = 'one';
+
     const [infoText, setInfoText] = useState('');
     const handleСlick = (post) => {
         alert(`        userId - ${post.userId}, Id - ${post.id}, 
