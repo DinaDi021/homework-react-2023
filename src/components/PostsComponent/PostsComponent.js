@@ -1,27 +1,46 @@
 import PostInfo from "../PostInfo/PostInfo.js";
-import {posts} from "../../assets/Posts.js";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 
-const PostsComponent = () => {
 
-    const [infoText, setInfoText] = useState('');
-    const handleСlick = (post) => {
-        alert(`        userId - ${post.userId}, Id - ${post.id}, 
-        Title:${post.title}, 
-        Body:${post.body}`);
-    }
+export const PostsComponent = () => {
+
+    const [posts, setPosts] = useState([])
+    const [selectedPost, setSelectedPost] = useState('');
+
+    useEffect(() => {
+        fetch('https://jsonplaceholder.typicode.com/posts')
+            .then(response => response.json())
+            .then((posts) => {
+                setPosts(posts);
+            })
+            .catch((errors) => console.log(errors.response))
+    }, [])
+    console.log(posts)
+
+    const handlePostClick = (post) => {
+        setSelectedPost(post);
+    };
+
     return (
         <>
-            {posts.map((post) =>
-                <PostInfo key={post.id}
-                          post={post}
-                          handleСlick={handleСlick}
-                          infoText={infoText}
-                />
+            {selectedPost ? (
+                <div>
+                    <h2>Post Details</h2>
+                    <h3>ID: {selectedPost.id}</h3>
+                    <h3>Title: {selectedPost.title}</h3>
+                    <p>Body: {selectedPost.body}</p>
+                </div>
+            ) : (
+                posts.map((post) => (
+                    <PostInfo
+                        key={post.id}
+                        post={post}
+                        handleСlick={handlePostClick}
+                    />
+                ))
             )}
         </>
-    )
-}
-
+    );
+};
 export default PostsComponent;

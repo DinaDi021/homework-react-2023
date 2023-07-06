@@ -1,5 +1,4 @@
 import './/App.css';
-import { posts } from "./assets/Posts.js";
 import PostComponent from "./components/PostsComponent/PostsComponent.js";
 import PostInfo from "./components/PostInfo/PostInfo.js";
 
