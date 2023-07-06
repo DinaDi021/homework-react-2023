@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import ShipComponent from "./ShipComponent.js";
 
-const ShipContainer = () => {
+export const ShipContainer = () => {
 
 const [ships, setShips] = useState([])
 
@@ -27,5 +27,3 @@ const [ships, setShips] = useState([])
         </>
     );
 };
-
-export default ShipContainer;
