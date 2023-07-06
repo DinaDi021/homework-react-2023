@@ -5,7 +5,7 @@ import ShipContainer from "./components/ShipComponent/ShipContainer";
 
 const App = () => {
   return (
-      <div>
+      <div className={'app'}>
 <ShipContainer />
       </div>
   );
