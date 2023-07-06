@@ -14,6 +14,7 @@ const [ships, setShips] = useState([])
             })
             .catch((errors) => console.log(errors.response))
         },[])
+    console.log(ships)
 
 
     return (
