@@ -1,13 +1,16 @@
-const shipComponent = (props) => {
-    const { ship, handleСlick } = props;
-    return (
-        <div className={styles.wrapper}>
-            <h2>mission name: {ship}</h2>
-            <h2>launch_year: {post.title}</h2>
-            <h2>mission_patch_small: {post.title}</h2>
-            <button onClick={()=>handleСlick(post)}>More info</button>
-        </div>
-    )
-}
+import styles from './Ship.module.css'
 
-export default shipComponent();
+const ShipComponent = props => {
+    const { ship } = props;
+
+    return (
+        <div className={styles.container}>
+            <h2>mission name: {ship.mission_name}</h2>
+            <h2>launch_year: {ship.launch_year}</h2>
+            <img src={ship.links.mission_patch_small} alt="mission patch" />
+        </div>
+    );
+};
+
+export default ShipComponent;
+
