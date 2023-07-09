@@ -1,15 +1,15 @@
-import styles from './Posts.module.css';
-const PostInfo = (props) => {
-    const { post, handleСlick } = props;
+import React from 'react';
+
+const PostInfo = ({post}) => {
+    const {id, title, userId, body} = post;
     return (
-        <div className={styles.wrapper}>
-            <h2>id: {post.id}</h2>
-            <h2>{post.title}</h2>
-            {handleСlick && (
-                <button onClick={() => handleСlick(post)}>More info</button>
-            )}
+        <div>
+            <p>Id: {id}</p>
+            <p>UserId: {userId}</p>
+            <p>Title: {title}</p>
+            <p>Body: {body}</p>
         </div>
-    )
-}
+    );
+};
 
 export default PostInfo;

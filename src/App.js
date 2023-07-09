@@ -1,6 +1,5 @@
-import './/App.css';
-import PostComponent from "./components/PostsComponent/PostsComponent.js";
-import PostInfo from "./components/PostInfo/PostInfo.js";
+import Posts from "./components/Posts";
+
 
 const title = 'Posts:';
 const App = () => {
@@ -8,9 +7,7 @@ const App = () => {
     return (
         <div>
             <h1>{title}</h1>
-            <div className={'app'}>
-                <PostComponent />
-            </div>
+                <Posts />
         </div>
     );
 };
