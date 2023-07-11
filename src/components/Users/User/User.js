@@ -1,14 +1,14 @@
-import React from 'react';
-import UserDetails from "./UserInfo/UserDetails";
-import UserAddress from "./UserInfo/UserAddress";
-import Company from "./UserInfo/Company";
+import React, {useState} from 'react';
+import UsersPosts from "../UsersPosts";
 
-const User = ({user}) => {
+const User = ({user, setUserId}) => {
+    const {id, name} = user;
+
     return (
         <div>
-            <UserDetails user={user}/>
-            <UserAddress user={user}/>
-            <Company user={user}/>
+            <h2>{id}</h2>
+            <h2>{name}</h2>
+            <button onClick={()=> setUserId(id)}>Users post</button>
         </div>
     );
 };

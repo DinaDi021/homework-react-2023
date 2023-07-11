@@ -1,23 +1,19 @@
-import React, {useEffect, useState} from 'react';
 import Users from "./components/Users/Users";
+import UsersPosts from "./components/Users/UsersPosts";
+import {useState} from "react";
 
 
 
 const App = () => {
-    const [users, setUsers] = useState([]);
+    const [userId, setUserId] = useState(null);
 
-    useEffect(() => {
-        fetch('https://jsonplaceholder.typicode.com/users')
-            .then(response => response.json())
-            .then((users) => setUsers(users))
-            .catch((errors) => console.log(errors.response))
-    }, [])
-
-  return (
-      <div>
-          <Users users={users}/>
-      </div>
-  );
+    return (
+        <div>
+            <Users setUserId={setUserId}/>
+            {userId&& <UsersPosts userId={userId}/>}
+        </div>
+    );
 };
+
 
 export {App};
