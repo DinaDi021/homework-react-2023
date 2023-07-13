@@ -1,4 +1,4 @@
-// import styles from './LoginPage.module.css'
+import styles from './CarForm.module.css'
 import {useForm} from "react-hook-form";
 import { joiResolver } from "@hookform/resolvers/joi";
 import Joi from "joi";
@@ -40,8 +40,8 @@ const CarForm = () => {
     }
 
     return (
-        <div>
-            <form onSubmit={handleSubmit(save)}>
+        <div className={styles.container}>
+            <form className={styles.form} onSubmit={handleSubmit(save)}>
                 <label>
                     Brand:
                     <br/>
