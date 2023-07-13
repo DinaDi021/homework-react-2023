@@ -1,64 +1,72 @@
 import styles from './LoginPage.module.css'
-import {useState} from "react";
-
+import {useForm} from "react-hook-form";
+import { joiResolver } from "@hookform/resolvers/joi";
+import Joi from "joi";
 
 const LoginForm = () => {
 
-    const [formValue, setFormValue] = useState({
-        name: '',
-        username: '',
-        email: '',
-        phone: ''
+    const schema = Joi.object({
+        userId: Joi.number().required(),
+        name: Joi.string().required(),
+        email: Joi.string()
+            .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }).required(),
+        body: Joi.string().required()
     });
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        fetch('https://jsonplaceholder.typicode.com/users', {
+
+    const {
+        handleSubmit,
+        register,
+        reset,
+        formState: { errors },
+    } = useForm({
+        resolver: joiResolver(schema),
+    });
+
+    const onSubmit = (data) => {
+        fetch('https://jsonplaceholder.typicode.com/comments', {
             method: 'POST',
-            body: JSON.stringify(formValue),
+            body: JSON.stringify(data),
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
             },
         })
 
             .then((response) => response.json())
-            .then((value) => console.log(value))
+            .then((value) => {
+                console.log(value);
+                reset();
+            })
             .catch(e => {
                 console.log(e);
             })
     }
 
-    const handleFormChange = (e, key) => {
-          e.preventDefault();
-          setFormValue((prevState)=>{
-              return{
-                ...prevState,
-                [key]: e.target.value
-              }
-          })
-        }
-
     return (
         <div className={styles.wrapper}>
-            <form className={styles.form} onSubmit={handleSubmit}>
+            <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+                <label>
+                    UserId:
+                    <br/>
+                    <input type="text" {...register('userId', { required: true })}/>
+                    {errors.userId && <span>{errors.userId.message}</span>}
+                </label>
                 <label>
                     Name:
                     <br/>
-                    <input type="text" value={formValue.name} onChange={(event) => handleFormChange(event,'name')}/>
-                </label>
-                <label>
-                    Username:
-                    <br/>
-                    <input type="text" value={formValue.username} onChange={(event) => handleFormChange(event,'username')}/>
+                    <input type="text" {...register('name', { required: true })}/>
+                    {errors.name && <span>{errors.name.message}</span>}
                 </label>
                 <label>
                     Email:
                     <br/>
-                    <input type="text" value={formValue.email} onChange={(event) => handleFormChange(event,'email')}/>
+                    <input type="text" {...register('email', { required: true })}/>
+                    {errors.email && <span>{errors.email.message}</span>}
                 </label>
                 <label>
-                    Phone:
+                    Body:
                     <br/>
-                    <input type="number" value={formValue.phone} onChange={(event) => handleFormChange(event,'phone')}/>
+                    <input type="text" {...register('body', { required: true })}/>
+                    {errors.body && <span>{errors.body.message}</span>}
                 </label>
 
                 <button type='submit'>Send</button>
