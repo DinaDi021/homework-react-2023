@@ -1,10 +1,10 @@
 import React from 'react';
-import CarForm from "./components/CarConteiner/CarForm/CarForm";
+import {CarContainer} from "./components/CarContainer/CarContainer";
 
 const App = () => {
   return (
       <div>
-        <CarForm/>
+        <CarContainer/>
       </div>
   );
 };
