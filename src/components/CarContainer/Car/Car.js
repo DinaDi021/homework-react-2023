@@ -1,4 +1,4 @@
-const Car = ({car}) => {
+const Car = ({car, onUpdate, onDelete}) => {
     const {id, brand, price, year} = car;
 
     return (
@@ -7,8 +7,8 @@ const Car = ({car}) => {
             <div>brand: {brand}</div>
             <div>price: {price}</div>
             <div>year: {year}</div>
-            <button>update</button>
-            <button>delete</button>
+            <button onClick={() => onUpdate(id)}>update</button>
+            <button onClick={() => onDelete(id)}>delete</button>
         </div>
     );
 };
