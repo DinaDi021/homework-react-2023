@@ -2,8 +2,9 @@ import styles from './CarForm.module.css'
 import {useForm} from "react-hook-form";
 import { joiResolver } from "@hookform/resolvers/joi";
 import Joi from "joi";
+import {useEffect} from "react";
 
-const CarForm = () => {
+const CarForm = ( {setOnSave, carForUpdate, setCarForUpdate}) => {
 
     const schema = Joi.object({
         brand: Joi.string().required(),
@@ -16,9 +17,18 @@ const CarForm = () => {
         register,
         reset,
         formState: { errors },
+        setValue
     } = useForm({
         resolver: joiResolver(schema),
     });
+
+    useEffect(() => {
+        if (carForUpdate) {
+            setValue('brand', carForUpdate.brand, {shouldValidate: true})
+            setValue('price', carForUpdate.price, {shouldValidate: true})
+            setValue('year', carForUpdate.year, {shouldValidate: true})
+        }
+    }, [carForUpdate]);
 
     const save = (data) => {
         fetch('http://owu.linkpc.net/carsAPI/v1/cars', {
@@ -30,18 +40,30 @@ const CarForm = () => {
         })
 
             .then((response) => response.json())
-            .then((value) => {
-                console.log(value);
-                reset();
+            .then(() => {
+                setOnSave(prev => !prev)
+                reset()
             })
             .catch(e => {
                 console.log(e);
             })
     }
 
+    const handleUpdate = (car) => {
+        fetch(`http://owu.linkpc.net/carsAPI/v1/cars/${carForUpdate.id}`, {
+            headers:{'content-type':'application/json'},
+            method:'PUT',
+            body:JSON.stringify(car)
+        }).then(value => value.json()).then(()=>{
+            setOnSave(prev=>!prev)
+            setCarForUpdate(null)
+            reset()
+        })
+    }
+
     return (
         <div className={styles.container}>
-            <form className={styles.form} onSubmit={handleSubmit(save)}>
+            <form className={styles.form} onSubmit={handleSubmit(!carForUpdate?save:handleUpdate)}>
                 <label>
                     Brand:
                     <br/>
@@ -61,7 +83,7 @@ const CarForm = () => {
                     {errors.year && <span>{errors.year.message}</span>}
                 </label>
 
-                <button type='submit'>Send</button>
+                <button type='submit'>{!carForUpdate?'Save':'Update'}</button>
             </form>
         </div>
     )
