@@ -1,18 +1,19 @@
-import React, {useState} from 'react';
+import Child1 from "./components/  Child1/Child1";
+import Child2 from "./components/Child2/Child2";
+import {createContext, useState} from "react";
 
-import Users from "./components/Users/Users";
-import Posts from "./components/Posts/Posts";
-
+export const SubChildContext = createContext(null)
 const App = () => {
+    const [text, setText] = useState('');
 
-    const [userId, setUserId] = useState(null);
-
-  return (
-      <div>
-        <Users setUserId={setUserId}/>
-          {userId&& <Posts userId={userId}/>}
-      </div>
-  );
+    return (
+        <SubChildContext.Provider value={{text: text, setText: setText}}>
+        <div>
+            <Child1/>
+            <Child2/>
+        </div>
+        </SubChildContext.Provider>
+    );
 };
 
 export {App};
