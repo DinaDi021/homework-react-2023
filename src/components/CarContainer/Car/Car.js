@@ -1,12 +1,10 @@
+import {CarsServices} from "../../../services/apiServices";
+
 const Car = ({car,setOnSave,setCarForUpdate}) => {
     const {id, brand, price, year} = car;
 
     const deleteCar = () => {
-        fetch(`http://owu.linkpc.net/carsAPI/v1/cars/${id}`,
-            {method:'DELETE'})
-            .then(()=>{
-            setOnSave(prev=>!prev)
-        })
+        CarsServices.deleteCar(id, setOnSave);
     };
 
     return (

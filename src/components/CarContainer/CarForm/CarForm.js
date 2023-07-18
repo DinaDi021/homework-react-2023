@@ -3,6 +3,7 @@ import {useForm} from "react-hook-form";
 import { joiResolver } from "@hookform/resolvers/joi";
 import Joi from "joi";
 import {useEffect} from "react";
+import {CarsServices} from "../../../services/apiServices";
 
 const CarForm = ( {setOnSave, carForUpdate, setCarForUpdate}) => {
 
@@ -30,36 +31,13 @@ const CarForm = ( {setOnSave, carForUpdate, setCarForUpdate}) => {
         }
     }, [carForUpdate]);
 
-    const save = (data) => {
-        fetch('http://owu.linkpc.net/carsAPI/v1/cars', {
-            method: 'POST',
-            body: JSON.stringify(data),
-            headers: {
-                'Content-type': 'application/json; charset=UTF-8',
-            },
-        })
+    const save = async (data) => {
+        await CarsServices.saveCar(data, setOnSave, reset);
+    };
 
-            .then((response) => response.json())
-            .then(() => {
-                setOnSave(prev => !prev)
-                reset()
-            })
-            .catch(e => {
-                console.log(e);
-            })
-    }
-
-    const handleUpdate = (car) => {
-        fetch(`http://owu.linkpc.net/carsAPI/v1/cars/${carForUpdate.id}`, {
-            headers:{'content-type':'application/json'},
-            method:'PUT',
-            body:JSON.stringify(car)
-        }).then(value => value.json()).then(()=>{
-            setOnSave(prev=>!prev)
-            setCarForUpdate(null)
-            reset()
-        })
-    }
+    const handleUpdate = async (car) => {
+        await CarsServices.updateCar(carForUpdate.id, car, setOnSave, setCarForUpdate, reset);
+    };
 
     return (
         <div className={styles.container}>
