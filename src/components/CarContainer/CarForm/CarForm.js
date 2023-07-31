@@ -1,18 +1,11 @@
 import styles from './CarForm.module.css'
 import {useForm} from "react-hook-form";
 import { joiResolver } from "@hookform/resolvers/joi";
-import Joi from "joi";
 import {useEffect} from "react";
 import {CarsServices} from "../../../services/apiServices";
+import {carFormSchema} from "./validators/validators";
 
 const CarForm = ( {setOnSave, carForUpdate, setCarForUpdate}) => {
-
-    const schema = Joi.object({
-        brand: Joi.string().required(),
-        price: Joi.number().required(),
-        year: Joi.number().required()
-    });
-
     const {
         handleSubmit,
         register,
@@ -20,7 +13,7 @@ const CarForm = ( {setOnSave, carForUpdate, setCarForUpdate}) => {
         formState: { errors },
         setValue
     } = useForm({
-        resolver: joiResolver(schema),
+        resolver: joiResolver(carFormSchema),
     });
 
     useEffect(() => {
@@ -33,10 +26,15 @@ const CarForm = ( {setOnSave, carForUpdate, setCarForUpdate}) => {
 
     const save = async (data) => {
         await CarsServices.saveCar(data, setOnSave, reset);
+        setOnSave((prev) => !prev);
+        reset();
     };
 
     const handleUpdate = async (car) => {
         await CarsServices.updateCar(carForUpdate.id, car, setOnSave, setCarForUpdate, reset);
+        setOnSave((prev) => !prev);
+        setCarForUpdate(null);
+        reset();
     };
 
     return (

@@ -5,6 +5,7 @@ const Car = ({car,setOnSave,setCarForUpdate}) => {
 
     const deleteCar = () => {
         CarsServices.deleteCar(id, setOnSave);
+        setOnSave(prev => !prev);
     };
 
     return (

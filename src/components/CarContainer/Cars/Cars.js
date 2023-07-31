@@ -3,11 +3,12 @@ import {Car} from "../Car/Car";
 import {CarsServices} from "../../../services/apiServices";
 
 
+
 const Cars = ({onSave,setOnSave,setCarForUpdate}) => {
     const [cars, setCars] = useState([]);
 
     useEffect(() => {
-        CarsServices.getCars(setCars);
+        CarsServices.CarsServices().then(({data}) => setCars(data))
     }, [onSave])
 
     return (
