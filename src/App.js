@@ -1,12 +1,14 @@
 import React from 'react';
-import {CarContainer} from "./components/CarContainer/CarContainer";
+import {UseMemo} from "./components/UseMemo/UseMemo";
+import {UseCallback} from "./components/UseCallback/UseCallback";
 
 const App = () => {
-  return (
-      <div>
-        <CarContainer/>
-      </div>
-  );
+    return (
+        <div>
+            {/*<UseMemo/>*/}
+            <UseCallback/>
+        </div>
+    );
 };
 
 export {App};
