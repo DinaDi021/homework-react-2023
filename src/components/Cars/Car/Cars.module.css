@@ -1,0 +1,13 @@
+.wrapper {
+    width: 90vw;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.cardCar {
+    width: 20%;
+    margin: 20px;
+    padding: 10px;
+    border: 1px solid black;
+}

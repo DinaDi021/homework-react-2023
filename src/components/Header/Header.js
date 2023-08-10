@@ -6,14 +6,8 @@ import styles from './Header.module.css'
 const Header = () => {
     const links = [
         {
-            path: '/todos',
-            label: 'Todos'
-        }, {
-            path: '/albums',
-            label: 'Albums'
-        }, {
-            path: '/comments',
-            label: 'Comments'
+            path: '/cars',
+            label: 'Cars'
         }
     ]
     const {pathname} = useLocation()

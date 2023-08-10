@@ -1,16 +1,12 @@
-const baseURL = 'https://jsonplaceholder.typicode.com'
+const baseURL =  process.env.REACT_APP_API
 
-const todos = '/todos'
-const albums = '/albums'
-const comments = '/comments'
-const posts = '/posts'
+const cars = '/cars'
+
 
 const urls = {
-    todos,
-    albums,
-    comments,
-    posts: {
-        byId: (id) => `${posts}/${id}`
+    cars,
+    car: {
+        byId: (id) => `${cars}/${id}`
     }
 }
 
