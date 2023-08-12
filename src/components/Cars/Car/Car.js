@@ -2,7 +2,7 @@ import React from 'react';
 
 import styles from './Cars.module.css'
 import {useDispatch} from "react-redux";
-import {carsActions} from "../../../redux";
+import {carsActions, setCarForUpdate} from "../../../redux";
 import {carsService} from "../../../services";
 
 const Car = ({car}) => {
@@ -16,10 +16,7 @@ const Car = ({car}) => {
     };
 
     const carForUpdate = () => {
-        carsService.updateById(id)
-            .then(({ data }) => {
-                dispatch(carsActions.updt({ id, updatedInfo: data }));
-            });
+        dispatch(carsActions.update(car));
     };
 
     return (

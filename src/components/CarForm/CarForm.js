@@ -1,16 +1,17 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Joi from "joi";
 import {joiResolver} from "@hookform/resolvers/joi";
 import {useForm} from "react-hook-form";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
 import styles from './CarForm.module.css'
-import {carsActions} from "../../redux";
+import {carsActions, getCars} from "../../redux";
 import {carsService} from "../../services";
 
 
-const CarForm = ( { carForUpdate}) => {
+const CarForm = () => {
     const dispatch = useDispatch();
+    const {carForUpdate} = useSelector(store => store.cars)
 
     const schema = Joi.object({
         brand: Joi.string().required(),
@@ -22,24 +23,35 @@ const CarForm = ( { carForUpdate}) => {
         handleSubmit,
         register,
         reset,
+        setValue,
         formState: { errors },
     } = useForm({
         resolver: joiResolver(schema),
     });
 
+    useEffect(() => {
+        if (carForUpdate) {
+            setValue('brand', carForUpdate.brand);
+            setValue('price', carForUpdate.price);
+            setValue('year', carForUpdate.year);
+        }
+    }, [carForUpdate, setValue])
+
     const onSubmit = (data) => {
-        if (!carForUpdate) {
-            carsService.create(data)
-                .then(() => {
-                    dispatch(carsActions.create(data))
-                })
+        if (carForUpdate) {
+            carsService.updateById(carForUpdate.id, data)
+                .then((updatedData) => {
+                    dispatch(carsActions.update(updatedData));
+                    dispatch(getCars())
+                    reset()
+                });
         } else {
-                carsService.updateById(carForUpdate.id, data)
-                    .then(() => {
-                        dispatch(carsActions.updt({ id: carForUpdate.id, updatedInfo: data }));
-                    });
-            }
-        reset();
+            carsService.create(data)
+                .then(createdData => {
+                    dispatch(carsActions.create(createdData.data));
+                    reset()
+                });
+        }
     }
 
     return (
@@ -64,7 +76,7 @@ const CarForm = ( { carForUpdate}) => {
                     {errors.year && <span>{errors.year.message}</span>}
                 </label>
 
-                <button type='submit'>{!carForUpdate?'Save':'Update'}</button>
+                <button type='submit'>{carForUpdate ? 'update' : 'save'}</button>
             </form>
         </div>
     )

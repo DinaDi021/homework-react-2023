@@ -1,8 +1,8 @@
 import {carsActionsTypes} from "../actions";
-import {Cars} from "../../components";
 
 const initialState = {
-    cars: []
+    cars: [],
+    carForUpdate: null
 };
 const carsReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -20,19 +20,10 @@ const carsReducer = (state = initialState, action) => {
                 ...state,
                 cars: [...state.cars, action.payload]
             };
-        case carsActionsTypes.UPDATE:
+        case carsActionsTypes.SET_CAR_FOR_UPDATE:
             return {
                 ...state,
-                cars: state.cars.map(car => {
-                    if (car.id === action.payload.id) {
-                        return {
-                            ...car,
-                            ...action.payload.updatedInfo
-                        };
-                    } else {
-                        return car;
-                    }
-                })
+               carForUpdate: action.payload
             };
         default:
             return state
