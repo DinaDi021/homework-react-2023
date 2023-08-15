@@ -1,6 +1,7 @@
 import React from 'react';
+import {IProps} from "../interfaces/postInterface";
 
-const PostInfo = ({post}) => {
+const PostInfo = ({post}: IProps) => {
     const {id, title, userId, body} = post;
     return (
         <div>

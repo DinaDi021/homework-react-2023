@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
 import PostInfo from "../PostInfo/PostInfo";
+import {IProps} from "../interfaces/postInterface";
 
-const Post = (props) => {
-    const {post} = props;
+const Post = ({ post }: IProps) => {
 
-    const [isShow, setISShow] = useState(false)
+    const [isShow, setISShow] = useState<boolean>(false);
     return (
         <div>
             <h2>ID: {post.id}</h2>
