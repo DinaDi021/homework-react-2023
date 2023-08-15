@@ -8,7 +8,3 @@ export interface IPost{
 export interface IProps {
     post: IPost
 }
-
-export interface IFunc {
-    setISShow: () => void
-}
