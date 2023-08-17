@@ -1,4 +1,4 @@
-import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice, isFulfilled, isPending, isRejected} from "@reduxjs/toolkit";
 import {characterService} from "../../../services";
 
 const initialState = {
@@ -9,6 +9,7 @@ const initialState = {
 const getCharactersById = createAsyncThunk(
     'charactersSlice/getCharactersById',
     async ({iDs}, thunkAPI) => {
+        console.log(iDs);
         try {
             const {data} = await characterService.getByIds(iDs)
             return data
@@ -27,6 +28,16 @@ const charactersSlice = createSlice ({
             .addCase(getCharactersById.fulfilled, (state,action) => {
                 state.characters = action.payload
             })
+            .addMatcher(isPending(), state => {
+                state.errors = null
+            })
+            .addMatcher(isFulfilled(), state => {
+                state.errors = null
+            })
+            .addMatcher(isRejected(), (state, action) => {
+                state.errors = action.payload
+            })
+
 })
 
 const {reducer: charactersReducer, actions} = charactersSlice;

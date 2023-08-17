@@ -6,10 +6,11 @@ import styles from './Episode.module.css'
 const Episode = ({episode}) => {
     const navigate = useNavigate()
     const {id, name, episode: chapter, characters} = episode;
-
+    console.log(characters)
 
     return (
-        <div className={styles.Episode} onClick={() => navigate('/characters', {state: {ids: characters}})}>
+        <div className={styles.Episode}
+             onClick={() => navigate('/characters', {state: {ids: characters}})}>
             <div>id: {id}</div>
             <div>name: {name}</div>
             <div>chapter: {chapter}</div>

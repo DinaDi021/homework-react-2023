@@ -4,7 +4,6 @@ import {useSearchParams} from "react-router-dom";
 
 import {episodesActions} from "../../redux/slices/episodesSlice/episodesSlice";
 import {Episode} from "./Episode/Episode";
-import {episodesService} from "../../services";
 import styles from './Episodes.module.css'
 
 
