@@ -13,7 +13,7 @@ const Characters = () => {
 
     useEffect(() => {
         console.log('Effect ids:', ids);
-        dispatch(charactersActions.getCharactersById(ids))
+        dispatch(charactersActions.getCharactersById({ids}))
     }, [ids, dispatch])
 
     return (

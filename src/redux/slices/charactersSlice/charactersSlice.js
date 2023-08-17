@@ -8,10 +8,10 @@ const initialState = {
 
 const getCharactersById = createAsyncThunk(
     'charactersSlice/getCharactersById',
-    async ({iDs}, thunkAPI) => {
-        console.log('slice getCharactersById:', iDs);
+    async ({ids}, thunkAPI) => {
+        console.log('slice getCharactersById:', ids);
         try {
-            const {data} = await characterService.getByIds(iDs)
+            const {data} = await characterService.getByIds(ids)
             return data
         } catch (e) {
             return thunkAPI.rejectWithValue(e.response.data)
