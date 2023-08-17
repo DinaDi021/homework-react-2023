@@ -15,9 +15,8 @@ const Episodes = () => {
     const [query, setQuery] = useSearchParams({page: '1'});
 
     useEffect(() => {
-        episodesService.getAll(query.get('page')).then(({data})=> dispatch(episodesActions.getEpisodes(data)))
-            setQuery(prev => ({...prev, page: prev.get('page')}))
-    }, [query, dispatch])
+        dispatch(episodesActions.getEpisodes(query.get('page')));
+    }, [query, dispatch]);
 
     return (
         <div className={styles.Episodes}>

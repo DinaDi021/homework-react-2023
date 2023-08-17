@@ -9,6 +9,7 @@ const Characters = () => {
     const {characters} = useSelector(state => state.characters)
     const {state: {ids}} = useLocation();
     console.log(ids)
+    console.log(characters)
 
     useEffect(() => {
         dispatch(charactersActions.getCharactersById(ids))
