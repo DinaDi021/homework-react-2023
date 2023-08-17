@@ -6,7 +6,6 @@ import styles from './Episode.module.css'
 const Episode = ({episode}) => {
     const navigate = useNavigate()
     const {id, name, episode: chapter, characters} = episode;
-    console.log(characters)
 
     return (
         <div className={styles.Episode}

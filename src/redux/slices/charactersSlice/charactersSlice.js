@@ -9,7 +9,7 @@ const initialState = {
 const getCharactersById = createAsyncThunk(
     'charactersSlice/getCharactersById',
     async ({iDs}, thunkAPI) => {
-        console.log(iDs);
+        console.log('slice getCharactersById:', iDs);
         try {
             const {data} = await characterService.getByIds(iDs)
             return data
